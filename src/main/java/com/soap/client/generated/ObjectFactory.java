@@ -65,4 +65,34 @@ public class ObjectFactory {
         return new Score();
     }
 
+    /**
+     * Create an instance of {@link CreateProductRequest }
+     * 
+     * @return
+     *     the new instance of {@link CreateProductRequest }
+     */
+    public CreateProductRequest createCreateProductRequest() {
+        return new CreateProductRequest();
+    }
+
+    /**
+     * Create an instance of {@link CreateProductResponse }
+     * 
+     * @return
+     *     the new instance of {@link CreateProductResponse }
+     */
+    public CreateProductResponse createCreateProductResponse() {
+        return new CreateProductResponse();
+    }
+
+    /**
+     * Create an instance of {@link ServiceStatus }
+     * 
+     * @return
+     *     the new instance of {@link ServiceStatus }
+     */
+    public ServiceStatus createServiceStatus() {
+        return new ServiceStatus();
+    }
+
 }

@@ -16,4 +16,8 @@ public class SoapClient extends WebServiceGatewaySupport {
         GetScoreResponse response = (GetScoreResponse) getWebServiceTemplate().marshalSendAndReceive("http://localhost:5000/ws", request);
         return response;
     }
+
+    public <T> T callSoapService(Object request, String url, Class<T> responseData){
+        return (T) getWebServiceTemplate().marshalSendAndReceive(url, request);
+    }
 }

@@ -1,6 +1,12 @@
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://soap.spring.api.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.spring.api.com/" targetNamespace="http://soap.spring.api.com/">
     <wsdl:types>
         <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://soap.spring.api.com/">
+            <xs:complexType name="ServiceStatus">
+                <xs:sequence>
+                    <xs:element name="message" type="xs:string"/>
+                    <xs:element name="status" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="GetScoreRequest">
                 <xs:complexType>
                     <xs:sequence>
@@ -22,8 +28,31 @@
                     <xs:element name="losses" type="xs:int"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:element name="CreateProductRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="product" type="xs:string"/>
+                        <xs:element name="price" type="xs:double"/>
+                        <xs:element name="location" type="xs:string"/>
+                        <xs:element name="stock" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateProductResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="responseStatus" type="tns:ServiceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:schema>
     </wsdl:types>
+    <wsdl:message name="CreateProductRequest">
+        <wsdl:part element="tns:CreateProductRequest" name="CreateProductRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateProductResponse">
+        <wsdl:part element="tns:CreateProductResponse" name="CreateProductResponse"> </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="GetScoreRequest">
         <wsdl:part element="tns:GetScoreRequest" name="GetScoreRequest"> </wsdl:part>
     </wsdl:message>
@@ -31,6 +60,10 @@
         <wsdl:part element="tns:GetScoreResponse" name="GetScoreResponse"> </wsdl:part>
     </wsdl:message>
     <wsdl:portType name="ScorePort">
+        <wsdl:operation name="CreateProduct">
+            <wsdl:input message="tns:CreateProductRequest" name="CreateProductRequest"> </wsdl:input>
+            <wsdl:output message="tns:CreateProductResponse" name="CreateProductResponse"> </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="GetScore">
             <wsdl:input message="tns:GetScoreRequest" name="GetScoreRequest"> </wsdl:input>
             <wsdl:output message="tns:GetScoreResponse" name="GetScoreResponse"> </wsdl:output>
@@ -38,6 +71,15 @@
     </wsdl:portType>
     <wsdl:binding name="ScorePortSoap11" type="tns:ScorePort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="CreateProduct">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="CreateProductRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="CreateProductResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="GetScore">
             <soap:operation soapAction=""/>
             <wsdl:input name="GetScoreRequest">
